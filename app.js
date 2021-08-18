@@ -88,15 +88,12 @@ var app = http.createServer(function (req, res) {
 
             
             res.writeHead(200, {'Content-Type': 'text/html', "abcdabcd": ids});
-            res.write(data);
+            res.write(data + ids);
           }
           res.end();
 
         });
         
-
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(data);
       }
     });
   }
