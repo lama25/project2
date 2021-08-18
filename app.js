@@ -71,7 +71,6 @@ var app = http.createServer(function (req, res) {
           ProjectionExpression: "Id",
           TableName: "ProductCatalog",
         };
-        
         ddb.scan(params2, function (err, data2) {
           if (err) {
             res.writeHead(200, {'Content-Type': 'text/html'});
