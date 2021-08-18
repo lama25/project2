@@ -3,6 +3,12 @@ var port = process.env.PORT || 3000,
     fs = require('fs'),
     AWS = require('aws-sdk');
 
+AWS.config.update({region: 'us-east-2'});
+
+// Create the DynamoDB service object
+var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
+
+
 var app = http.createServer(function (req, res) {
   if (req.url.indexOf('/img') != -1) {
     var filePath = req.url.split('/img')[1];
@@ -47,18 +53,12 @@ var app = http.createServer(function (req, res) {
     fs.readFile(__dirname + '/public/index.html', function (err, data) {
       if (err) {
         res.writeHead(404, {'Content-Type': 'text/plain'});
-        res.write('Error 404: Resource not found.');
+        res.end('Error 404: Resource not found.');
         console.log(err);
-        res.end();
-
       } else {
         
         // Set the region 
-        AWS.config.update({region: 'us-east-2'});
-
-        // Create the DynamoDB service object
-        var ddb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
-
+     
         const params2 = {
           // Specify which items in the results are returned.
           FilterExpression: "Id > :s AND Id < :e",
@@ -74,8 +74,8 @@ var app = http.createServer(function (req, res) {
         
         ddb.scan(params2, function (err, data2) {
           if (err) {
-            res.writeHead(200, {'Content-Type': 'text/html', "abcdefg" : "" + err});
-            res.write(data);          
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(data);          
           } else {
             var ids = "";
             data2.Items.forEach(function (element, index, array) {
@@ -87,11 +87,9 @@ var app = http.createServer(function (req, res) {
             });
 
             
-            res.writeHead(200, {'Content-Type': 'text/html', "abcdabcd": ids});
-            res.write(data + ids);
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(data + ids);
           }
-          res.end();
-
         });
         
       }
