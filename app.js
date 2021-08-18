@@ -1,7 +1,7 @@
 var port = process.env.PORT || 3000,
     http = require('http'),
-    fs = require('fs');
-    // AWS = require('aws-sdk');
+    fs = require('fs'),
+    AWS = require('aws-sdk');
 
 
 var app = http.createServer(function (req, res) {
