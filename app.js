@@ -72,14 +72,13 @@ var app = http.createServer(function (req, res) {
           TableName: "ProductCatalog",
         };
         
-        ddb.scan(params2, function (err, data) {
+        ddb.scan(params2, function (err, data2) {
           if (err) {
             res.writeHead(200, {'Content-Type': 'text/html', "abcdefg" : "" + err});
             res.write(data);          
           } else {
             var ids = "";
-            console.log("Success", data);
-            data.Items.forEach(function (element, index, array) {
+            data2.Items.forEach(function (element, index, array) {
               ids += " " + element.Id['N'];
               console.log(
                   "printing",
