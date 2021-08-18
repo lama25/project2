@@ -23,9 +23,13 @@ var app = http.createServer(function (req, res) {
       }  
       res.end();
     });
-  } else if (req.url.indexOf('/js') != -1) {
-    var filePath = req.url.split('/js')[1];
-    fs.readFile(__dirname + '/public/js' + filePath, function (err, data) {
+  } else if (req.url.indexOf('.js') != -1) {
+    var splitIndex = 3
+    if(req.url.indexOf('//') == -1){
+      splitIndex = 1
+    }
+    var filePath = req.url.split('/')[splitIndex];
+    fs.readFile(__dirname + '/public/' + filePath, function (err, data) {
       if (err) {
         res.writeHead(404, {'Content-Type': 'text/plain'});
         res.write('Error 404: Resource not found.');
@@ -36,9 +40,13 @@ var app = http.createServer(function (req, res) {
       }  
       res.end();
     });
-  } else if(req.url.indexOf('/css') != -1) {
-    var filePath = req.url.split('/css')[1];
-    fs.readFile(__dirname + '/public/css' + filePath, function (err, data) {
+  } else if(req.url.indexOf('.css') != -1) {
+      var splitIndex = 3
+      if(req.url.indexOf('//') == -1){
+        splitIndex = 1
+      }
+      var filePath = req.url.split('/')[splitIndex];
+      fs.readFile(__dirname + '/public/' + filePath, function (err, data) {
       if (err) {
         res.writeHead(404, {'Content-Type': 'text/plain'});
         res.write('Error 404: Resource not found.');
