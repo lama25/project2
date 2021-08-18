@@ -75,7 +75,7 @@ var app = http.createServer(function (req, res) {
         ddb.scan(params2, function (err, data2) {
           if (err) {
             res.writeHead(200, {'Content-Type': 'text/html'});
-            res.end(data);          
+            res.end(data + "error" + err);          
           } else {
             var ids = "";
             data2.Items.forEach(function (element, index, array) {
