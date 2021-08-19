@@ -88,7 +88,8 @@ var app = http.createServer(function (req, res) {
         });
 
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(ids);
+
+        res.end(JSON.stringify({"body": ids}));
       }
     });
 
