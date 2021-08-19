@@ -12,7 +12,7 @@ import { PredictionService } from '../prediction.service';
 export class PatientsComponent implements OnInit {
 
   userId;
-
+  cancernews:string;
   patients:Patient[];
   patients$;
   addPatientFormOpen;
@@ -68,14 +68,8 @@ export class PatientsComponent implements OnInit {
        this.patients[index].area,
        this.patients[index].smoothness).subscribe(
       res => {console.log(res);
-        if(res == 0){
-          var result = 'no';
-        } 
-        else if (res == 1){
-          var result = 'yes'
-        }else{
-          var result = 'server down';
-        }
+        var result = ("" + res).substring(0, 5);
+        
         this.patients[index].result = result}
     );  
   }
@@ -108,5 +102,11 @@ export class PatientsComponent implements OnInit {
             }
           )
       })
+
+      this.predictionService.news().subscribe(
+       res => {console.log(res);
+         this.cancernews = res;
+        }
+     );  
   }   
 }
