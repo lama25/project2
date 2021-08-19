@@ -1,0 +1,18 @@
+<mat-card>
+    <h1>City Form</h1>
+    <form #cityForm = "ngForm" (ngSubmit) = "onSubmit()" >
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>City Selection</mat-label>
+                <mat-select place-holder = "City" [(ngModel)] = "city" name = "city" required>
+                  <mat-option *ngFor="let city of cities" [value]="city.name">
+                    {{city.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>       
+        </div>
+        <div>
+           <button [disabled] = "!cityForm.form.valid"  type = "submit" mat-raised-button color="primary">See temperatures for {{city}}</button>
+        </div>
+    </form>
+</mat-card>

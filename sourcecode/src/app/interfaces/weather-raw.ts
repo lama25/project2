@@ -1,0 +1,19 @@
+export interface WeatherRaw {
+        coord:{
+           lon:number
+           lat:number
+        },
+        weather:[
+           {
+              description:string
+              icon:string
+           }
+        ],
+        main:{
+           temp:number
+        },
+        sys:{
+           country:string
+        },
+        name:string
+}

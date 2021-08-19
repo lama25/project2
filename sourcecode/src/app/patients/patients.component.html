@@ -1,0 +1,196 @@
+<div>
+    <button mat-raised-button 
+    color="primary"
+    (click) = "addPatientFormOpen = true">
+    Add patient
+   </button>   
+  </div>
+  <div>
+    <patientform *ngIf = "addPatientFormOpen"
+      [formType] = "'Add patient'"
+      (update) = "add($event)"
+      (closeEdit) = "addPatientFormOpen = false">
+    </patientform>
+  </div>
+  <table mat-table [dataSource]="patients" class="mat-elevation-z8">
+  
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+    
+            <!-- name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> name </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf = "i!=rowToEdit">{{element.name}}</span> 
+                <mat-form-field   *ngIf = "i==rowToEdit" >
+                  <input          
+                    matInput
+                    [(ngModel)]="PatientToEdit.name" 
+                    [value] = "element.name"            
+                  >
+                </mat-form-field>
+              </td>
+            </ng-container>
+    
+      <!-- radius Column -->
+      <ng-container matColumnDef="radius">
+        <th mat-header-cell *matHeaderCellDef> radius </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <span *ngIf = "i!=rowToEdit">{{element.radius}}</span> 
+          <span *ngIf = "i==rowToEdit" >
+            <input style="border-bottom: 1px solid black;"       
+            matInput
+              [(ngModel)]="PatientToEdit.radius" 
+              [value] = "element.radius"            
+            >
+          </span>
+        </td>
+      </ng-container>
+    
+      <!-- texture Column -->
+      <ng-container matColumnDef="texture">
+        <th mat-header-cell *matHeaderCellDef> texture </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <span *ngIf = "i!=rowToEdit">{{element.texture}}</span>
+          <span *ngIf = "i==rowToEdit" >
+            <input style="border-bottom: 1px solid black;"       
+            matInput
+              [(ngModel)]="PatientToEdit.texture" 
+              [value] = "element.texture"            
+            >
+          </span>         
+        </td>
+      </ng-container>
+            <!-- perimeter Column -->
+            <ng-container matColumnDef="perimeter">
+                <th mat-header-cell *matHeaderCellDef> perimeter </th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                  <span *ngIf = "i!=rowToEdit">{{element.perimeter}}</span>
+                  <span *ngIf = "i==rowToEdit" >
+                    <input style="border-bottom: 1px solid black;"       
+                    matInput
+                      [(ngModel)]="PatientToEdit.perimeter" 
+                      [value] = "element.perimeter"            
+                    >
+                  </span>         
+                </td>
+              </ng-container>
+                          <!-- area Column -->
+            <ng-container matColumnDef="area">
+              <th mat-header-cell *matHeaderCellDef> area </th>
+              <td mat-cell *matCellDef="let element; let i = index">
+                <span *ngIf = "i!=rowToEdit">{{element.area}}</span> 
+                <span *ngIf = "i==rowToEdit" >
+                  <input style="border-bottom: 1px solid black;"       
+                  matInput
+                    [(ngModel)]="PatientToEdit.area" 
+                    [value] = "element.area"            
+                  >
+                </span>
+              </td>
+            </ng-container>
+                        <!-- smoothness Column -->
+                        <ng-container matColumnDef="smoothness">
+                          <th mat-header-cell *matHeaderCellDef> smoothness </th>
+                          <td mat-cell *matCellDef="let element; let i = index">
+                            <span *ngIf = "i!=rowToEdit">{{element.smoothness}}</span> 
+                            <span *ngIf = "i==rowToEdit" >
+                              <input style="border-bottom: 1px solid black;"       
+                              matInput
+                                [(ngModel)]="PatientToEdit.smoothness" 
+                                [value] = "element.smoothness"            
+                              >
+                            </span>
+                          </td>
+                        </ng-container>
+        <!-- Delete Column -->
+        <ng-container matColumnDef="Delete">
+          <th mat-header-cell *matHeaderCellDef> Delete </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <button 
+              mat-raised-button
+              color = 'warn'
+              (click) = "deletePatient(i)"
+            >
+              Delete
+            </button>                  
+          </td>
+        </ng-container>    
+    
+
+  
+  
+      <!-- Edit Column -->
+      <ng-container matColumnDef="Edit">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button 
+            *ngIf = "i!=rowToEdit"
+            mat-raised-button
+            (click) = "moveToEditState(i)"
+          >
+            Edit
+          </button> 
+          <button style="float:left;
+          margin-right:5px;"
+            *ngIf = "i==rowToEdit"
+            mat-raised-button
+            color="primary"
+            (click) = "updatePatient()"
+          >
+            save
+          </button> 
+          <button style="float:left;
+          margin-right:5px;"            *ngIf = "i==rowToEdit"
+            mat-raised-button
+            (click) = "rowToEdit = null"
+          >
+            Cancel
+          </button>                   
+        </td>
+      </ng-container>    
+  
+      <!-- Predict Column -->
+      <ng-container matColumnDef="Predict">
+        <th mat-header-cell *matHeaderCellDef> Predict </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <button *ngIf = "!element.result" mat-raised-button 
+          color="primary"
+          (click) = "predict(i)"
+          >
+          Predict
+        </button>  
+        <button *ngIf = "element.result&&!element.saved" mat-raised-button 
+        color="primary"
+        (click) = "updateResult(i)"
+        >
+        Save
+      </button>
+      <button *ngIf = "element.result&&!element.saved" mat-raised-button 
+        color="primary"
+        (click) = "element.result = null"
+        >
+        cancel
+      </button>
+        <span *ngIf = "element.saved">saved</span>        
+        </td>
+      </ng-container>  
+      
+      <!-- result Column -->
+      <ng-container matColumnDef="Result">
+        <th mat-header-cell *matHeaderCellDef> Result </th>
+        <td mat-cell *matCellDef="let element">
+          <span  [ngClass]="[element.result=='Will pay' ? 'green' : 'red']">{{element.result}}</span>
+        </td>
+      </ng-container>    
+    
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+  
+   
+    
+    </table>
+  
+    
+  

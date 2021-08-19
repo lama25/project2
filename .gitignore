@@ -1,2 +1,45 @@
 node_modules
 .vscode/launch.json
+sourcecode/src/environments/environment.ts
+sourcecode/src/environments/environment.prod.ts
+
+sourcecode/dist
+sourcecode/tmp
+sourcecode/out-tsc
+sourcecode/bazel-out
+
+sourcecode/node_modules
+
+# profiling files
+sourcecode/chrome-profiler-events*.json
+sourcecode/speed-measure-plugin*.json
+
+# IDEs and editors
+sourcecode/.idea
+sourcecode/.project
+sourcecode/.classpath
+sourcecode/.c9/
+sourcecode/*.launch
+sourcecode/.settings/
+sourcecode/*.sublime-workspace
+
+sourcecode/.vscode/*
+sourcecode/!.vscode/settings.json
+sourcecode/!.vscode/tasks.json
+sourcecode/!.vscode/launch.json
+sourcecode/!.vscode/extensions.json
+sourcecode/.history/*
+
+sourcecode/.sass-cache
+sourcecode/connect.lock
+sourcecode/coverage
+sourcecode/libpeerconnection.log
+sourcecode/npm-debug.log
+sourcecode/yarn-error.log
+sourcecode/testem.log
+sourcecode/typings
+
+# System Files
+sourcecode/.DS_Store
+sourcecode/Thumbs.db
+

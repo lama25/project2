@@ -1,0 +1,44 @@
+<mat-card>
+  <h1>{{formType}}</h1>
+  <form #bookForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="example-container">
+
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="name" [(ngModel)]="name" name="name">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="radius" [(ngModel)]="radius" name="radius">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="texture" [(ngModel)]="texture" name="texture">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="perimeter" [(ngModel)]="perimeter" name="perimeter">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="area" [(ngModel)]="area" name="area">
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput placeholder="smoothness" [(ngModel)]="smoothness" name="smoothness">
+        </mat-form-field>
+      </p>
+      <p>
+      </p>
+      <div>
+        <button mat-raised-button (click)="updateParent()">{{buttonText}}</button>
+        <button mat-raised-button (click)="tellParentToClose()">Cancel</button>
+      </div>
+    </div>
+  </form>
+</mat-card>

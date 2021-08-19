@@ -1,0 +1,31 @@
+<label id="example-radio-group-label">Pick your favorite season</label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="selectedNetwork">
+  <mat-radio-button class="example-radio-button" *ngFor="let network of networks" [value]="network">
+    {{network}}  
+  </mat-radio-button>
+</mat-radio-group>
+<div>Your favorite network is: {{selectedNetwork}}</div>
+<mat-form-field style = "width:400px">
+  <mat-label>Text to classify</mat-label>
+  <textarea matInput
+            [(ngModel)] = "text" 
+            name = "text" 
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="10"
+            cdkAutosizeMaxRows="20"></textarea>
+</mat-form-field>
+<div>
+  <button mat-raised-button
+  color = "primary"
+    (click) = "classify()">
+    Classify
+  </button>
+</div>
+<div>
+  {{category}} <img [src] = "categoryImage">
+</div>
+

@@ -1,0 +1,19 @@
+<p *ngIf = "!(weatherData$ | async)&&!hasError">Loading data..</p>
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title *ngIf = "!hasError">Temperatures in {{city}} is {{(weatherData$ | async)?.temperature | number:'1.0-0'}}º</mat-card-title>
+      <mat-card-title *ngIf = "hasError">{{errorMessage}}</mat-card-title>
+      <mat-card-subtitle *ngIf = "!hasError"><img [src] = "image"></mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>Country: {{country}} </p>
+      <p>Longitude:{{lon}}, Latitude:{{lat}}</p>
+      <a routerLink="/city" routerLinkActive="active">Select city</a>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>

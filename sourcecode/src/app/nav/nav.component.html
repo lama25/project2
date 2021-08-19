@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+
+    <mat-nav-list *ngIf = "(authService.getUser()| async)">
+      <a mat-list-item routerLink="/hello">Home Page</a>
+      <a mat-list-item routerLink="/patients">Patients</a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>
+        <span *ngIf = "(authService.getUser()| async)">{{username}}</span>
+        Welcome to Cancer Predictor 
+      </span>
+      <span class = "spacer"></span>
+      <a class = "whitelink" routerLink = "/signup" *ngIf = "!(authService.getUser()|async)">Signup</a>
+      <a class = "whitelink" routerLink = "/login" *ngIf = "!(authService.getUser()|async)">Login</a>
+      <a class = "whitelink1" (click) = "logout()" *ngIf = "(authService.getUser()|async)">Logout</a>
+    </mat-toolbar>
+    <!-- Add Content Here -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
